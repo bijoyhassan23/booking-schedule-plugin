@@ -1,0 +1,353 @@
+.booking_date_picker{
+    max-width: 1200px;
+    margin: auto;
+}
+
+:root{
+    --slot-bg-color: oklch(1 0 0);
+    --slot-bg-border: solid 2px oklch(0.922 0 0);
+    --slot-border-radius: 14px;
+    --slot-text-color: oklch(0.21 0.034 264.665);
+}
+
+.booking_date_picker{
+    display: flex;
+    gap: 20px;
+
+    .col_left{
+        width: max(30%, 370px);
+        background-color: var(--slot-bg-color);
+        padding: 24px;
+        border-radius: var(--slot-border-radius);
+        border: var(--slot-bg-border);
+        .left_title{
+            color: var(--slot-text-color);
+            font-weight: 600;
+
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            svg{
+                width: 20px;
+                height: 20px;
+            }
+        }
+    }
+    .col_right{
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        .slot_title{
+            background-color: var(--slot-bg-color);
+            padding: 24px;
+            border-radius: var(--slot-border-radius);
+            border: var(--slot-bg-border);
+            color: var(--slot-text-color);
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .slot_time{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            .each_date_slot{
+                background-color: var(--slot-bg-color);
+                padding: 24px;
+                border-radius: var(--slot-border-radius);
+                border: var(--slot-bg-border);
+                .date_slot_title{
+                    color: var(--slot-text-color);
+                    font-size: 18px;
+                    font-weight: 600;
+                    margin-bottom: 20px;
+                }
+                .date_time_slots{
+                    display: grid;
+                    grid-template-columns: repeat(3, minmax(150px, 1fr));
+                    gap: 14px;
+                    .time_slot{
+                        border: var(--slot-bg-border);
+                        border-radius: 10px;
+                        padding: 10px 14px;
+                        position: relative;
+                        cursor: pointer;
+                        transition: 0.3s;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 2px;
+                        input{
+                            display: none;
+                        }
+                        .start_end_time{
+                            font-size: 16px;
+                            color: oklch(0.21 0.034 264.665);
+                            font-weight: 500;
+                            transition: 0.3s;
+                        }
+                        .slot_status{
+                            font-size: 12px;
+                            color: oklch(0.551 0.027 264.364);
+                        }
+                        svg{
+                            position: absolute;
+                            top: 50%;
+                            right: 10px;
+                            transform: translateY(-50%);
+                            opacity: 0;
+                            width: 16px;
+                            transition: 0.3s;
+                        }
+                        &:has(input:not([booked="true"])) .booked,
+                        &:has(input[booked="true"]) .available{
+                            display: none;
+                        }
+                        &:has(input[booked="true"]:not(:checked)){
+                            background-color: oklch(0.985 0.002 247.839);
+                            border-color: oklch(0.967 0.003 264.542);
+                            .start_end_time, 
+                            .slot_status{
+                                color: oklch(14.479% 0.00002 271.152 / 0.497);
+                            }
+                        }
+                        &:hover{
+                            background-color: oklch(0.97 0.014 254.604);
+                            border-color: oklch(0.809 0.105 251.813);
+                        }
+                        &:has(input:checked){
+                            background-color: oklch(0.982 0.018 155.826);
+                            border-color: oklch(0.723 0.219 149.579);
+                            svg{
+                                opacity: 1;
+                                color: oklch(0.723 0.219 149.579);
+                            }
+                        }
+
+                    }
+
+                }
+            }
+        }
+        .no_date_selected{
+            background-color: var(--slot-bg-color);
+            padding: 80px 24px;
+            border-radius: var(--slot-border-radius);
+            border: var(--slot-bg-border);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            height: max(350px, 100%);
+            svg{
+                width: 64px;
+                height: 64px;
+                color: #B8BBC3;
+            }
+            .title{
+                font-size: 20px;
+            }
+            .sub_title{
+                font-size: 16px;
+            }
+        }
+        &:not(:has(.slot_time .each_date_slot)) .slot_title,
+        &:not(:has(.slot_time .each_date_slot)) .slot_time,
+        &:has(.slot_time .each_date_slot) .no_date_selected{
+            display: none;
+        }
+
+    }
+}
+
+
+.booking_date_picker .slot_calendar{
+
+    /* --------------------------elementor overwrite------------------------ */
+
+    table{
+        margin-block-end:0px;
+    }
+    table td,table th{
+        border: none;
+        padding: 0px;
+    }
+
+    table tbody>tr:nth-child(odd)>td,table tbody>tr:nth-child(odd)>th{
+        background-color: transparent;
+    }
+
+    *,:after,:before{
+        box-sizing: unset;
+    }
+    /* ------------------------elementor overwrite--------------------------- */
+
+    a{
+        text-decoration: none;
+    }
+
+    h2.fc-toolbar-title{
+        font-size: 18px;
+    }
+
+    .fc-toolbar-chunk{
+        .fc-button-primary{
+            padding: 0px 10px;
+            text-transform: capitalize;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+        .fc-button-group{
+            gap: 12px;
+            .fc-button{
+                padding: 0px;
+                text-transform: capitalize;
+                font-size: 18px;
+                border-radius: 5px;
+            }
+        }
+    }
+
+    table{
+        border: none;
+        font-size: 16px;
+        th, td{
+            border-color: transparent !important;
+        }
+        .fc-col-header-cell{
+            color: oklch(0.551 0.027 264.364);
+            font-size: 14px;
+        }
+        .fc-daygrid-day{
+            border-radius: 5px;
+            transition: 0.2s;
+            background: none !important;
+            position: relative;
+            &[date_status="desabled"]{
+                cursor: not-allowed;
+                color: oklch(0.872 0.01 258.338);
+            }
+            &:not([date_status="desabled"]),
+            &[date_status="selected"]{
+                &::after{
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 8px;
+                    background-color: oklch(83.91% 0.07327 255.583);
+                    opacity: 0;
+                    scale: 0.87;
+                    transition: 0.2s;
+                    z-index: 1;
+                }
+            }
+            &:not([date_status="desabled"]):not([date_status="selected"]){
+                cursor: pointer;
+                &:hover,
+                &.fc-day-today{
+                    color: oklch(0.546 0.245 262.881) !important;
+                    &::after{
+                        opacity: 0.2;
+                    }
+                }
+            }
+            &[date_status="selected"]{
+                color: white !important;
+                cursor: pointer;
+                &::after{
+                    background-color: oklch(0.546 0.245 262.881) !important;
+                    opacity: 1 !important; 
+                }
+            }
+            /* &.fc-day-other{
+                opacity: 0;
+                cursor: not-allowed;
+            } */
+            > div{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                z-index: 2;
+                .fc-daygrid-day-events,
+                .fc-daygrid-day-bg{
+                    display: none;
+                }
+                .fc-daygrid-day-top{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+        }
+    }
+
+
+}
+
+
+.booking_notice{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: oklab(0 0 0 / 0.5);
+    backdrop-filter: blur(10px);
+    z-index: 999;
+    transition: 0.3s;
+    .notice_container{
+        /* background-color: oklch(0.97 0.014 254.604);
+        border: solid 1px oklch(0.882 0.059 254.128); */
+        background-color: white;
+        border: solid 1px oklch(75.721% 0.00009 271.152);
+        padding: 20px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        max-width: 400px;
+        .notice_title{
+            font-size: 22px;
+            font-weight: 600;
+            /* color: oklch(0.488 0.243 264.376); */
+        }
+        .notice_message{
+            font-size: 16px;
+            line-height: 1.2;
+            /* color: oklch(0.488 0.243 264.376); */
+        }
+        .button_group{
+            display: flex;
+            gap: 15px;
+            button{
+                font-size: 16px;
+                padding: 8px 25px;
+                border-radius: 6px;
+                cursor: pointer;
+                border: solid 1px oklch(0.882 0.059 254.128);
+                &.okay{
+                    background-color: oklch(0.982 0.018 155.826);
+                    border-color: oklch(0.925 0.084 155.995);
+                    color: oklch(0.527 0.154 150.069);
+                }
+                &.close{
+                    background-color: oklch(0.98 0.016 73.684);
+                    border-color: oklch(0.901 0.076 70.697);
+                    color: oklch(0.553 0.195 38.402);
+                }
+            }
+        }
+    }
+    &[show_status="false"]{
+        opacity: 0;
+        pointer-events: none;
+    }
+}

@@ -1,0 +1,535 @@
+:root{
+    --border-color-1:oklch(0.928 0.006 264.531);
+}
+
+/* main containers */
+.main_wraper {
+    *{
+        margin: 0px;
+        padding: 0px;
+    }
+    font-size: 14px;
+    padding: 20px;
+    background: #F9FAFC;
+    border: solid 1px var(--border-color-1);
+    border-radius: 10px;
+    position: relative;
+    .btn{
+        padding: 7px 16px;
+        border: solid 1px;
+        border-radius: 8px;
+        font-size: inherit;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+        svg{
+            width: 16px;
+            height: 16px;
+        }
+        &.mark_off_day{
+            color: oklch(0.577 0.245 27.325);
+            border-color: oklch(0.885 0.062 18.334) !Important;
+            background: oklch(1 0 0);
+
+            &:hover{
+                color: oklch(0.205 0 0);
+                background: oklch(0.971 0.013 17.38);
+            }
+        }
+        &.add_time_slot{
+            background: oklch(0.546 0.245 262.881);
+            color: white;
+            &:hover{
+                background: oklch(0.488 0.243 264.376);
+            }
+        }
+    }
+    .slot_selector{
+        display:flex;
+        gap: 20px;
+        min-height: 600px;
+        .col{
+            overflow: hidden;
+            &.left_col{
+                width: min(300px, 30%);
+                background: white;
+                border-radius: 10px;
+                border: solid 1px var(--border-color-1);
+                .col_heading{
+                    padding: 24px;
+                    border-bottom: solid 1px var(--border-color-1);
+                    .page-title{
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                        color: oklch(0.21 0.034 264.665);
+                        h2{
+                            font-size: 18px;  
+                            color: inherit;
+                        }
+                        svg{
+                            width: 20px;
+                            color: inherit
+                        }
+                    }
+                    .sub_title{
+                        margin-top: 4px;
+                        color: oklch(0.551 0.027 264.364);
+                    }
+                }
+                .tab_heading{
+                    padding: 8px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 4px;
+                    border-bottom: solid 1px var(--border-color-1);
+                    .each_tab_heading{
+                        padding: 8px 12px;
+                        display: flex;
+                        align-items: center;
+                        gap:8px;
+                        font-size: inherit;
+                        font-weight: 500;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        color: oklch(0.446 0.03 256.802);
+                        transition: 0.3s;
+                        &:hover{
+                            background-color: oklch(0.967 0.003 264.542);
+                        }
+                        svg{
+                            width: 16px;
+                        }
+                    }
+                }
+                .tab_realteds{
+                    .week_days{
+                        padding: 8px;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 4px;
+                        .week_day_title{
+                            padding: 12px 16px;
+                            font-size: 16px;
+                            color: oklch(0.373 0.034 259.733);
+                            border-radius: 10px;
+                            cursor: pointer;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            transition: 0.3s;
+                            &:hover{
+                                background: oklch(0.985 0.002 247.839);
+                            }
+                            input[type="radio"]{
+                                opacity: 0;
+                                margin: 0px !important;
+                                border-color: oklch(0.488 0.243 264.376) !important;
+                                outline: none;
+                            }
+                            &:has([type="radio"][name="week_day"]:checked){
+                                border: solid 1px oklch(0.882 0.059 254.128);
+                                background: oklch(0.97 0.014 254.604) !important;
+                                color: oklch(0.488 0.243 264.376);
+                                input[type="radio"] {
+                                    opacity: 1;
+                                    
+                                }
+                            }
+                            
+                        }
+                    }
+                    .custom_date_picker{
+                        padding: 16px;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 20px;
+                        .date_picker{
+                            display: flex;
+                            flex-direction: column;
+                            gap: 8px;
+                            color: oklch(0.373 0.034 259.733);
+                            input[type="date"]{
+                                border-radius: 8px;
+                                border: solid 1px oklch(0.922 0 0);
+                                color: coloroklch(0.145 0 0);
+                            }
+                        }
+                        .selected_date{
+                            padding: 12px;
+                            background: oklch(0.97 0.014 254.604);
+                            border: solid 1px oklch(0.882 0.059 254.128);
+                            border-radius: 10px;
+                            color: oklch(0.488 0.243 264.376);
+                            h3{
+                                font-size: 14px;
+                                color: inherit;
+                            }
+                        }
+                    }
+                }
+            }
+            &.right_col{
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                .col_heading{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 16px 24px;
+                    background: white;
+                    border-radius: 10px;
+                    border: solid 1px var(--border-color-1);
+                    .col_1{
+                        h1{
+                            font-weight: 600;
+                            padding: 0px;
+                            color: oklch(0.21 0.034 264.665);
+                        }
+                        .sub_title{
+                            margin-top: 4px;
+                        }
+                    }
+                    .col_2{
+                        display: flex;
+                        gap: 16px;
+                    }
+                }
+                .time_solts{
+                    display: grid;
+                    grid-template-columns: repeat(4, 1fr);
+                    gap: 20px;
+                    .each_time_slot{
+                        background: white;
+                        padding: 20px;
+                        border-radius: 10px;
+                        border: solid 1px var(--border-color-1);
+                        color: oklch(0.145 0 0);
+                        display: flex;
+                        flex-direction: column;
+                        gap: 10px;
+                        .slot_time{
+                            display: flex;
+                            align-items: center;
+                            gap: 4px;
+                            font-size: 16px;
+                            font-weight: 600;
+                            svg{
+                                width: 16px;
+                                color: oklch(0.546 0.245 262.881);
+                            }
+                        }
+                        .duration_rp{
+                            color: oklch(0.551 0.027 264.364);
+                        }
+                        .each_slot_btns{
+                            display: flex;
+                            gap: 10px;
+                            .edit_btn,
+                            .delete_btn{
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                gap: 8px;
+                                cursor: pointer;
+                                border-radius: 8px;
+                                background: none;
+                                border: solid 1px oklch(0.922 0 0);
+                                svg{
+                                    width: 16px;
+                                }
+                            }
+                            .edit_btn{
+                                flex-grow: 1;
+                                
+                            }
+                            .delete_btn{
+                                aspect-ratio: 1/1;
+                                flex-shrink: 0;
+                                padding: 0px 12px;
+                                color: oklch(0.577 0.245 27.325);
+                            }
+                        }
+                    }
+                }
+                .off_day_notice,
+                .no_slots,
+                .no_date{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 20px;
+                    padding: 50px 20px;
+                    > svg{
+                        width: 50px;
+                        height: 50px;
+                        color: oklch(0.872 0.01 258.338);
+                    }
+                }
+
+                .off_day_notice{
+                    border: solid 1px oklch(0.885 0.062 18.334);
+                    border-radius: 10px;
+                    background: oklch(0.971 0.013 17.38);
+                    > svg{
+                        color: red;
+                    }
+                    h3, p{
+                        color: oklch(0.444 0.177 26.899);
+                    }
+                    .remove_off_day{
+                        border-color: oklch(0.885 0.062 18.334);
+                        background: white;
+                        color: red;
+                    }
+                }
+            }
+        }
+    }
+
+    .right_col{
+       &:has(.time_solts .each_time_slot) .no_slots,
+        .time_solts:not(:has(.each_time_slot)){
+            display: none !important;
+        }
+    }
+    
+    &[selected_tab="weekly_schedule"]{
+        .left_col{
+             .tab_heading .each_tab_heading.weekly_schedule_tab_btn{
+                color: oklch(0.488 0.243 264.376) !important;
+                background: oklch(0.932 0.032 255.585) !important;
+            }
+            .tab_realteds .custom_date_picker{
+                display: none !important;
+            }
+        }
+        .right_col{
+            &:has(.time_solts .each_time_slot) .no_slots,
+            .time_solts:not(:has(.each_time_slot)),
+            .no_date{
+                display: none !important;
+            }
+        }
+    }
+
+    &[selected_tab="custom_date"]{
+        .left_col{
+            .tab_heading .each_tab_heading.custom_date_tab_btn{
+                color: oklch(0.488 0.243 264.376);
+                background: oklch(0.932 0.032 255.585) !important;
+            }
+    
+            .tab_realteds .week_days{
+                display: none !important;
+            }
+        }
+        &:not([selected_custom_date=""]) .right_col{
+            .no_date{
+                display: none !important;
+            }
+        }
+        &[selected_custom_date=""]{
+          .left_col{
+            .selected_date{
+              display: none !important;
+            }
+          }
+          .right_col{
+            .col_heading,
+            .time_solts,
+            .no_slots,
+            .off_day_notice{
+              display: none !important;
+            }
+          }
+        }
+    }
+
+    &[off_day_status="true"]{
+        .right_col{
+            .col_heading .col_2,
+            .time_solts,
+            .no_slots{
+                display: none !important;
+            }
+        }
+    }
+
+    &:not([off_day_status="true"]){
+        .right_col .off_day_notice{
+            display: none !important;
+        }
+    }
+
+}
+
+
+/* Modals */
+.main_wraper{    
+    .picker_modal{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: oklab(0 0 0 / 0.5);
+        backdrop-filter: blur(5px);
+        border-radius: 10px;
+        z-index: 10;
+        transition: 0.3s;
+        .container{
+            background: white;
+            padding: 24px;
+            border-radius: 10px;
+            position: relative;
+            width: min(500px, 100%);
+            gap: 15px;
+            display: flex;
+            flex-direction: column;
+            .close_icon{
+                position: absolute;
+                right: 5px;
+                top: 5px;
+                cursor: pointer;
+                svg{
+                    width: 20px;
+                }
+            }
+            .modal_title{
+                font-size: 18px;
+            }
+            .time_pickers{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+                label{
+                    display: flex;
+                    flex-direction: column;
+                    gap: 4px;
+                    font-weight: 500;
+                    color: oklch(0.145 0 0);
+                    input{
+                      border: solid 1px oklch(0.922 0 0);
+                      border-radius: 8px;
+                      padding: 4px 12px;
+                    }
+                }
+            }
+            .off_day_reason{
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+                font-weight: 500;
+                color: oklch(0.145 0 0);
+                .off_day_reason_input{
+                    padding: 5px;
+                }
+            }
+            .error_message{
+                color: red;
+                font-size: 14px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 10px;
+                border-radius: 8px;
+                background: oklch(0.971 0.013 17.38);
+                border: solid 1px oklch(0.885 0.062 18.334);
+                &[show_status="false"]{
+                    display: none;
+                }
+            }
+            .buttons_grp{
+                display: flex;
+                justify-content: end;
+                gap: 8px;
+                button{
+                    padding: 7px 16px;
+                    border: solid 1px;
+                    border-radius: 8px;
+                    font-size: inherit;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 8px;
+                    cursor: pointer;
+                    transition: 0.3s;
+                    svg{
+                        width: 16px;
+                        height: 16px;
+                    }
+                    &.cancel_btn{
+                        background: white;
+                        border: solid 1px oklch(0.922 0 0);
+                        &:hover{
+                            background: oklch(0.97 0 0);
+                        }
+                    }
+                    &.save_btn,
+                    &.update_btn{
+                        background: oklch(0.488 0.243 264.376);
+                        border: oklch(0.488 0.243 264.376);
+                        color: white;
+                    }
+                    &.off_day_btn{
+                        background: oklch(0.577 0.245 27.325);
+                        border: oklch(0.577 0.245 27.325);
+                        color: white;
+                    }
+                }
+            }
+        }
+    }
+
+    &[modal_status="add slot"]{
+      .picker_modal{
+        .modal_title > span:not(.add_slot_title),
+        .off_day_reason,
+        .update_btn,
+        .off_day_btn{
+          display: none !important;
+        }
+      }
+    }
+
+    &[modal_status="edit slot"]{
+      .picker_modal{
+        .modal_title span:not(.edit_slot_title),
+        .off_day_reason,
+        .save_btn,
+        .off_day_btn{
+          display: none !important;
+        }
+      }
+    }
+
+    &[modal_status="off day"]{
+      .picker_modal{
+        .modal_title span:not(.off_day_title),
+        .time_pickers,
+        .update_btn,
+        .save_btn{
+          display: none !important;
+        }
+      }
+    }
+
+    &:not([modal_status="add slot"]):not([modal_status="edit slot"]):not([modal_status="off day"]) .picker_modal{
+        opacity: 0;
+        pointer-events: none;
+        .container{
+          display: none !important;
+        }
+    }
+    
+}
