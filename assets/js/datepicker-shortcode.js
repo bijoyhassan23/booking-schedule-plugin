@@ -26,12 +26,12 @@ function bookingNoticeCloser(){
 
         return new Promise((res, rej) => {
             noticeOkay.addEventListener('click', function(){
-                res(true);
                 noticeDiv.setAttribute("show_status", false);
+                res(true);
             })
             noticeClose.addEventListener('click', function(){
-                res(false);
                 noticeDiv.setAttribute("show_status", false);
+                res(false);
             })
         });
     }
@@ -67,8 +67,9 @@ document.addEventListener('DOMContentLoaded', function() {
             let mm = String(arg.date.getMonth() + 1).padStart(2, "0");
             let dd = String(arg.date.getDate()).padStart(2, "0");
             let dateStr = `${yyyy}-${mm}-${dd}`;
+            // console.log(dateStr);
 
-            if (arg.date.getTime() < todayDateObj.getTime()) {
+            if (arg.date.getTime() < todayDateObj.getTime() || window?.offDayData.includes(dateStr) || window?.offDayData.includes(arg.date.getDay())) {
                 // past dates disabled
                 arg.el.setAttribute("date_status", "desabled");
             }else if (selectedDates.includes(dateStr)) {
@@ -78,5 +79,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    calendar.render();
+    fetch(bksh_frontend.api_get_offdays_url)
+    .then(response => response.json())
+    .then(data => {
+        window.offDayData = data?.offdays;
+        calendar.render();
+    })
+    .catch(error => {
+        window.offDayData = [];
+        calendar.render();
+        console.error("Fetch error:", error);
+    });
 });
