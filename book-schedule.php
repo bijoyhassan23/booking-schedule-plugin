@@ -41,9 +41,20 @@ if (!function_exists('bksh_on_activate') && !function_exists('bksh_on_deactivate
             PRIMARY KEY (offday_id)
         ) $charset_collate;";
 
+        // Table 3: booking_list
+        $table_bookinglist = $wpdb->prefix . 'booking_list';
+        $sql3 = "CREATE TABLE IF NOT EXISTS $table_bookinglist (
+            booking_id INT(11) NOT NULL AUTO_INCREMENT,
+            slot_id VARCHAR(20) NOT NULL,
+            booking_date VARCHAR(20) NOT NULL,
+            user_id VARCHAR(20),
+            PRIMARY KEY (booking_id)
+        ) $charset_collate;";
+
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
         dbDelta($sql1);
         dbDelta($sql2);
+        dbDelta($sql3);
     }
     register_activation_hook( __FILE__, "bksh_on_activate");
 
@@ -59,6 +70,8 @@ if (!function_exists('bksh_on_activate') && !function_exists('bksh_on_deactivate
 // Include the main plugin file
 require_once plugin_dir_path(__FILE__) . 'admin/includes/settings-page.php';
 require_once plugin_dir_path(__FILE__) . 'admin/includes/booking-page.php';
+
+// backend apis
 require_once plugin_dir_path(__FILE__) . 'admin/includes/api-insert-slot.php';
 require_once plugin_dir_path(__FILE__) . 'admin/includes/api-update-slot.php';
 require_once plugin_dir_path(__FILE__) . 'admin/includes/api-delete-slot.php';
@@ -67,7 +80,11 @@ require_once plugin_dir_path(__FILE__) . 'admin/includes/api-offday-handle.php';
 
 require_once plugin_dir_path(__FILE__) . 'includes/booking-admin-page.php';
 require_once plugin_dir_path(__FILE__) . 'includes/datepicker-shortcode.php';
+
+// Frontend apis
 require_once plugin_dir_path(__FILE__) . 'includes/api-get-offdays.php';
+require_once plugin_dir_path(__FILE__) . 'includes/api-book-slot.php';
+require_once plugin_dir_path(__FILE__) . 'includes/api-get-slots.php';
 
 
 // Enqueue admin styles
@@ -101,7 +118,12 @@ function bksh_enqueue_front_end_styles(){
         wp_localize_script( 'bksh-frond-end-script', 'bksh_frontend', [
             'nonce' => wp_create_nonce('wp_rest'),
             'api_get_offdays_url'  => esc_url_raw(rest_url('booking/v1/')) . 'get-offdays',
+            'api_add_booking_url'  => esc_url_raw(rest_url('booking/v1/')) . 'add-booking',
+            'api_get_slots_url'  => esc_url_raw(rest_url('booking/v1/')) . 'get-slots',
         ]);
     }
 }
 add_action( "wp_enqueue_scripts", "bksh_enqueue_front_end_styles");
+
+
+

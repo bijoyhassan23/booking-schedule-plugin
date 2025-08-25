@@ -5,4 +5,35 @@
         console.log(data);
     })
     .catch(error => console.error("Fetch error:", error));
+
+
+    fetch('http://stevennguyen831liaquat550.local/wp-json/booking/v1/get-offdays')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+    })
+    .catch(error => console.error("Fetch error:", error));
+
+
+    fetch(bksh_frontend.api_add_booking_url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-WP-Nonce": bksh_frontend.nonce
+        },
+        body: JSON.stringify({
+            slot_id: "7",
+            booking_date: "2025-08-28",
+            user_id: "123"
+        })
+        })
+        .then(res => res.json())
+        .then(console.log);
+
+
+
+    fetch(bksh_frontend.api_get_slots_url + '?date=2025-08-28')
+        .then(res => res.json())
+        .then(x => console.log(x))
+        .catch(err => console.error(err));
 </script>

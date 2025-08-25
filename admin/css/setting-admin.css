@@ -288,6 +288,9 @@
                         background: white;
                         color: red;
                     }
+                    .off_day_sl{
+                        text-transform: capitalize;
+                    }
                 }
             }
         }

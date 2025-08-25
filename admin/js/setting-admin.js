@@ -303,6 +303,7 @@ function loadSlotAsync(){
                 getTheSlotContainer.innerHTML = ""; // Clear existing slots
                 getTheMainSelectConainer.setAttribute("off_day_status", response?.offday_status);
                 if(response?.offday_status){
+                    getTheMainSelectConainer.querySelector(".off_day_notice .off_day_sl").innerHTML = dateOrDate;
                     getTheMainSelectConainer.querySelector(".off_day_notice p.off_day_reason").innerHTML = response?.offday_reason;
                     return;
                 }

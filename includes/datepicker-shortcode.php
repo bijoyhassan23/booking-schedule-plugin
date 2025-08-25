@@ -14,7 +14,7 @@ function bkah_date_picker_shortcode($atts) {
                 <div class="slot_title">Available Time Slots</div>
                 <div class="slot_time">
 
-                    <div class="each_date_slot">
+                    <!-- <div class="each_date_slot">
                         <div class="date_slot_title">Wednesday, August 20</div>
                         <div class="date_time_slots">
 
@@ -48,7 +48,6 @@ function bkah_date_picker_shortcode($atts) {
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big w-4 h-4 text-green-600"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><path d="m9 11 3 3L22 4"></path></svg>
                             </label>
 
-
                             <label class="time_slot">
                                 <input type="radio" name="date_slot_1" value="09:00 - 10:00">
                                 <span class="start_end_time">09:00 - 10:00</span>
@@ -60,55 +59,7 @@ function bkah_date_picker_shortcode($atts) {
                             </label>
                             
                         </div>
-                    </div>
-
-                    <div class="each_date_slot">
-                        <div class="date_slot_title">Wednesday, August 20</div>
-                        <div class="date_time_slots">
-
-                            <label class="time_slot">
-                                <input type="radio" name="date_slot_2" value="09:00 - 10:00">
-                                <span class="start_end_time">09:00 - 10:00</span>
-                                <div class="slot_status">
-                                    <span class="available">Available</span>
-                                    <span class="booked">Booked</span>
-                                </div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big w-4 h-4 text-green-600"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><path d="m9 11 3 3L22 4"></path></svg>
-                            </label>
-
-                            <label class="time_slot">
-                                <input type="radio" name="date_slot_2" value="09:00 - 10:00">
-                                <span class="start_end_time">09:00 - 10:00</span>
-                                <div class="slot_status">
-                                    <span class="available">Available</span>
-                                    <span class="booked">Booked</span>
-                                </div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big w-4 h-4 text-green-600"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><path d="m9 11 3 3L22 4"></path></svg>
-                            </label>
-
-                            <label class="time_slot">
-                                <input type="radio" name="date_slot_2" value="09:00 - 10:00">
-                                <span class="start_end_time">09:00 - 10:00</span>
-                                <div class="slot_status">
-                                    <span class="available">Available</span>
-                                    <span class="booked">Booked</span>
-                                </div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big w-4 h-4 text-green-600"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><path d="m9 11 3 3L22 4"></path></svg>
-                            </label>
-
-
-                            <label class="time_slot">
-                                <input type="radio" name="date_slot_2" value="09:00 - 10:00">
-                                <span class="start_end_time">09:00 - 10:00</span>
-                                <div class="slot_status">
-                                    <span class="available">Available</span>
-                                    <span class="booked">Booked</span>
-                                </div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big w-4 h-4 text-green-600"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><path d="m9 11 3 3L22 4"></path></svg>
-                            </label>
-                            
-                        </div>
-                    </div>
+                    </div> -->
 
                 </div>
                 <div class="no_date_selected">
