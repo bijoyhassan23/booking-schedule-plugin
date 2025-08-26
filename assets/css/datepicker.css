@@ -13,8 +13,11 @@
 .booking_date_picker{
     display: flex;
     gap: 20px;
-
+    align-items: flex-start;
+    position: relative;
     .col_left{
+        position: sticky;
+        top: 50px;
         width: max(30%, 370px);
         background-color: var(--slot-bg-color);
         padding: 24px;
@@ -161,6 +164,21 @@
     }
 }
 
+@media (max-width: 1000px){
+    .booking_date_picker{
+        flex-direction: column;
+        .col_left{
+            width: 100%;
+            position: static;
+        }
+        .col_right{
+            width: 100%;
+        }
+        .date_time_slots{
+            grid-template-columns: repeat(2, minmax(150px, 1fr)) !important;
+        }
+    }
+}
 
 .booking_date_picker .slot_calendar{
 
@@ -321,7 +339,7 @@
         }
         .notice_message{
             font-size: 16px;
-            line-height: 1.2;
+            line-height: 1.5;
             /* color: oklch(0.488 0.243 264.376); */
         }
         .button_group{

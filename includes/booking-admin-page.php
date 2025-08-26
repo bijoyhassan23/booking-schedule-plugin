@@ -7,20 +7,31 @@ function bksh_booking_admin_page() {
         'Booking Settings',  
         'Booking',
         'manage_options',
-        'booking',
-        'bksh_booking_page_html',
+        'booking-times',
+        'bksh_booking_times_page_html',
         'dashicons-calendar',
         20
     );
 
-    add_submenu_page(
-        'booking',
-        'Booking Times',
-        'Settings',
-        'manage_options',
-        'booking-times',
-        'bksh_booking_times_page_html'
-    );
+
+    // add_menu_page(
+    //     'Booking Settings',  
+    //     'Booking',
+    //     'manage_options',
+    //     'booking',
+    //     'bksh_booking_page_html',
+    //     'dashicons-calendar',
+    //     20
+    // );
+
+    // add_submenu_page(
+    //     'booking',
+    //     'Booking Times',
+    //     'Settings',
+    //     'manage_options',
+    //     'booking-times',
+    //     'bksh_booking_times_page_html'
+    // );
 }
 
 

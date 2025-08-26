@@ -36,4 +36,24 @@
         .then(res => res.json())
         .then(x => console.log(x))
         .catch(err => console.error(err));
+
+
+    async function fetchSlots(date) {
+    try {
+        const response = await fetch(`/wp-json/booking/v1/get-slots?date=${date}`);
+        if (!response.ok) {
+            throw new Error("Failed to fetch slots");
+        }
+
+        const data = await response.json();
+        console.log("Slots for date:", date, data);
+    } catch (error) {
+        console.error("Error fetching slots:", error);
+    }
+}
+
+// Example usage
+fetchSlots("2025-08-28");
 </script>
+
+

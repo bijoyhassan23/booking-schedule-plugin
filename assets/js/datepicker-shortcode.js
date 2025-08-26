@@ -21,7 +21,7 @@ function bookingNoticeCloser(){
 
     return function ({title = "", message = "" } = {}) {
         noticeTitle.innerHTML = title;
-        noticeMessage.innerHTML = title;
+        noticeMessage.innerHTML = message;
         noticeDiv.setAttribute("show_status", true);
 
         return new Promise((res, rej) => {
@@ -39,7 +39,8 @@ function bookingNoticeCloser(){
 let bookingNotice = bookingNoticeCloser();
 
 // celendar Functionality
-let selectionLimit = 5;
+let selectionLimit = 1;
+let doubleSlotPrice = 40;
 let selectedDates = [];
 const fetchedSlotMemory = {};
 const loadSlotEvent = new CustomEvent("loadSlotEvent");
@@ -66,7 +67,10 @@ document.addEventListener('DOMContentLoaded', function() {
             document.dispatchEvent(loadSlotEvent);
         },
         dayCellDidMount: function(arg) {
-            let dateStr = arg.date.toISOString().split('T')[0];
+            let yyyy = arg.date.getFullYear();
+            let mm = String(arg.date.getMonth() + 1).padStart(2, "0");
+            let dd = String(arg.date.getDate()).padStart(2, "0");
+            let dateStr = `${yyyy}-${mm}-${dd}`;
 
             if (arg.date.getTime() < todayDateObj.getTime() || window?.offDayData.includes(dateStr) || window?.offDayData.includes(arg.date.getDay())) {
                 // past dates disabled
@@ -100,7 +104,12 @@ function addEachDaySlot(slotInfo){
         return;
     }
 
-    let dateStr = slotInfo.date.toISOString().split('T')[0];
+    let yyyy = slotInfo.date.getFullYear();
+    let mm = String(slotInfo.date.getMonth() + 1).padStart(2, "0");
+    let dd = String(slotInfo.date.getDate()).padStart(2, "0");
+    let dateStr = `${yyyy}-${mm}-${dd}`;
+
+    // let dateStr = slotInfo.date.toISOString().split('T')[0];
     let labelRadios = ``;
     const options = { hour: 'numeric', minute: '2-digit', hour12: true };
     slotInfo.slots.forEach(eachTimeSlot => {
@@ -109,7 +118,7 @@ function addEachDaySlot(slotInfo){
         let bookedStatus = !!eachTimeSlot.booked;
         labelRadios += `
             <label class="time_slot">
-                <input type="radio" class="slot_radio" name="${dateStr}" value="${startTimeD.toLocaleTimeString('en-US', options)} - ${endTimeD.toLocaleTimeString('en-US', options)}" booked="${bookedStatus}">
+                <input type="radio" class="slot_radio" name="${dateStr}" date="${dateStr}" slot-id="${eachTimeSlot?.slot_id}" value="${startTimeD.toLocaleTimeString('en-US', options)} - ${endTimeD.toLocaleTimeString('en-US', options)}" booked="${bookedStatus}">
                 <span class="start_end_time">${startTimeD.toLocaleTimeString('en-US', options)} - ${endTimeD.toLocaleTimeString('en-US', options)}</span>
                 <div class="slot_status">
                     <span class="available">Available</span>
@@ -121,6 +130,7 @@ function addEachDaySlot(slotInfo){
     })
 
     const eachDaySlot = document.createElement('div');
+    eachDaySlot.classList.add('each_date_slot');
     const title = slotInfo.date.toLocaleDateString("en-US", {
             weekday: "long",
             year: "numeric", 
@@ -129,11 +139,21 @@ function addEachDaySlot(slotInfo){
         });
     eachDaySlot.innerHTML = `
         <div class="date_slot_title">${title}</div>
-        <div class="date_time_slots">${labelRadios ? labelRadios : "No slot Available on this date"}</div>
+        <div class="date_time_slots">${labelRadios || "No slot Available on this date"}</div>
     `;
-    eachDaySlot.classList.add('each_date_slot');
     slotInfo['element'] = eachDaySlot;
     getSlotContainer.appendChild(eachDaySlot);
+
+    // Extra Notice
+    eachDaySlot.querySelectorAll('input.slot_radio[booked="true"]').forEach(eachBooked => {
+        eachBooked.addEventListener('change', async function(){
+            let acceptance = await bookingNotice({
+                title: "This Slot is Already Booked", 
+                message: `This slot has already been booked. You can still reserve it by paying an additional fee of $${doubleSlotPrice}. Do you want to proceed?` 
+            });
+            if(!acceptance){eachBooked.checked = false}
+        })
+    })
 }
 
 async function getSlots(date) {
@@ -169,3 +189,55 @@ function loadSlot(){
 }
 
 document.addEventListener('loadSlotEvent', loadSlot);
+
+document.querySelectorAll(".variations_form cart, .cart").forEach(eachForm => {
+    eachForm.addEventListener("submit", function(event){
+        event.preventDefault();
+        const bookingList = [];
+        let extraPrice = 0;
+        const getAllCheckFild = getSlotContainer.querySelectorAll('input.slot_radio[type="radio"]:checked');
+        if(getAllCheckFild.length <= 0){
+            alert("Please select a Date and slot");
+            return;
+        }
+
+        getAllCheckFild.forEach(eachSelect => {
+            let bookedStatus = eachSelect.getAttribute("booked") === "true";
+            const bookedSlot = {
+                date: eachSelect.getAttribute("date"),
+                slotId: eachSelect.getAttribute("slot-id"),
+                time: eachSelect.value,
+                extra: bookedStatus,
+            }
+            bookingList.push(bookedSlot);
+            if(bookedStatus) extraPrice += doubleSlotPrice;
+        })
+        console.log(extraPrice);
+        document.querySelector("#slot_infos").value = JSON.stringify(bookingList);
+        document.querySelector("#extra_price").value = extraPrice;
+        eachForm.submit();
+    })
+})
+
+
+
+function resetDateSelect(){
+    document.querySelectorAll('[date_status="selected"]').forEach((item) => {
+        item.removeAttribute("date_status");
+        selectedDates = [];
+        getSlotContainer.innerHTML = "";
+    })
+}
+
+
+const getVariationSelector = document.querySelector("#pa_multiple");
+
+if(getVariationSelector){
+    getVariationSelector.addEventListener("change", function(){
+        resetDateSelect();
+        let theDateCanselect = this.value;
+        theDateCanselect = theDateCanselect.match(/\d+/g).join("");
+        theDateCanselect = theDateCanselect ? parseInt(theDateCanselect) : null;
+        if(theDateCanselect) selectionLimit = theDateCanselect;
+    })
+}

@@ -86,6 +86,9 @@ require_once plugin_dir_path(__FILE__) . 'includes/api-get-offdays.php';
 require_once plugin_dir_path(__FILE__) . 'includes/api-book-slot.php';
 require_once plugin_dir_path(__FILE__) . 'includes/api-get-slots.php';
 
+// Woocommerce
+require_once plugin_dir_path(__FILE__) . 'includes/connect-with-woocommerce.php';
+
 
 // Enqueue admin styles
 function bksh_enqueue_admin_styles() {
