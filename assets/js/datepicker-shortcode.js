@@ -229,15 +229,20 @@ function resetDateSelect(){
     })
 }
 
-
-const getVariationSelector = document.querySelector("#pa_multiple");
-
-if(getVariationSelector){
-    getVariationSelector.addEventListener("change", function(){
-        resetDateSelect();
-        let theDateCanselect = this.value;
-        theDateCanselect = theDateCanselect.match(/\d+/g).join("");
-        theDateCanselect = theDateCanselect ? parseInt(theDateCanselect) : null;
-        if(theDateCanselect) selectionLimit = theDateCanselect;
-    })
-}
+let getVariationSelector;
+let tempTimer = setInterval(function(){
+    console.log("okay")
+    getVariationSelector = document.querySelector("#pa_multiple, #multiple");
+    if(getVariationSelector){
+        getVariationSelector.addEventListener("change", function(){
+            let theDateCanselect = this.value;
+            theDateCanselect = theDateCanselect.match(/\d+/g).join("");
+            theDateCanselect = theDateCanselect ? parseInt(theDateCanselect) : null;
+            if(theDateCanselect) {
+                selectionLimit = theDateCanselect;
+                resetDateSelect();
+            }
+        })
+        clearInterval(tempTimer);
+    }
+}, 100 );

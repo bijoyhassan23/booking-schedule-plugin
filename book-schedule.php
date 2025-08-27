@@ -3,7 +3,7 @@
  * Plugin Name: Booking Plugin 
  * Plugin URI: https://bijoy.dev/
  * Description: Plugin For booking functionality.
- * Version: 1.0
+ * Version: 1.0.1
  * Author: Bijoy
  * Author URI: https://bijoy.dev/
  * License: GPL2
@@ -109,11 +109,31 @@ function bksh_enqueue_admin_styles() {
 add_action('admin_enqueue_scripts', 'bksh_enqueue_admin_styles', 20);
 
 
+// Check shoortcode has
+function bksh_has_shortcode($post_id, $shortcode) {
+    $post = get_post($post_id);
+    if (!$post) return false;
+
+    // Check in normal post content
+    if (has_shortcode($post->post_content, $shortcode)) {
+        return true;
+    }
+
+    // Check Elementor meta content
+    $elementor_data = get_post_meta($post_id, '_elementor_data', true);
+    if ($elementor_data && strpos($elementor_data, $shortcode) !== false) {
+        return true;
+    }
+
+    return false;
+}
+
+
 function bksh_enqueue_front_end_styles(){
     global $post;
     if(!is_a($post, 'WP_Post')) return;
 
-    if(has_shortcode( $post->post_content, "date_picker" )){
+    if(bksh_has_shortcode(get_the_ID(), 'date_picker')){
         wp_enqueue_style( "bksh-front-end-style", plugin_dir_url( __FILE__ ) . 'assets/css/datepicker.css', [], '1.0', 'all' );
 
         wp_enqueue_script( 'bksh-fullcalendar-script', plugin_dir_url(__FILE__) . 'assets/js/fullcalendar@6.1.14.min.js', [], '1.0', false);
